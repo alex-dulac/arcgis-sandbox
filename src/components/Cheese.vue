@@ -3,9 +3,14 @@ import { onMounted, ref } from 'vue';
 import config from '@arcgis/core/config.js';
 import Map from '@arcgis/core/Map.js';
 import MapView from '@arcgis/core/views/MapView.js';
-import BasemapToggle from '@arcgis/core/widgets/BasemapToggle.js'
+import Graphic from "@arcgis/core/Graphic.js";
+import RouteParameters from "@arcgis/core/rest/support/RouteParameters.js";
+import FeatureSet from "@arcgis/core/rest/support/FeatureSet.js";
+import * as route from "@arcgis/core/rest/route.js";
 
+let view;
 const mapDiv = ref();
+const cheeseUrl = "https://services.arcgis.com/V6ZHFr6zdgNZuVG0/ArcGIS/rest/services/Single%20people%20and%20cheese/FeatureServer/0";
 
 onMounted(() => {
   config.apiKey = import.meta.env.VITE_API_KEY;
@@ -14,18 +19,15 @@ onMounted(() => {
     basemap: 'arcgis-streets'
   });
 
-  const view = new MapView({
+  view = new MapView({
     map,
     container: mapDiv.value,
     center: [-70.25, 43.75],
-    zoom: 8
+    zoom: 10
   });
 
-  const toggle = new BasemapToggle({
-    view: view,
-    nextBasemap: "hybrid"
-  });
-  view.ui.add(toggle, "top-right");
+  // set up and analyze cheese.....
+
 });
 </script>
 
